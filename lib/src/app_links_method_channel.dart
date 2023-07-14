@@ -18,6 +18,9 @@ class AppLinksMethodChannel extends AppLinksPlatform {
   /// [getLatestAppLink] method call name
   static const String _getLatestAppLinkMethod = 'getLatestAppLink';
 
+  /// [clearLatestAppLink] method call name
+  static const String _clearLatestAppLinkMethod = 'clearLatestAppLink';
+
   @override
   Future<Uri?> getInitialAppLink() async {
     final result = await getInitialAppLinkString();
@@ -40,6 +43,11 @@ class AppLinksMethodChannel extends AppLinksPlatform {
   Future<String?> getLatestAppLinkString() async {
     final link = await _method.invokeMethod<String?>(_getLatestAppLinkMethod);
     return link != null && link.isNotEmpty ? link : null;
+  }
+
+  @override
+  Future<void> clearLatestAppLink() async {
+    await _method.invokeMethod<String?>(_clearLatestAppLinkMethod);
   }
 
   @override

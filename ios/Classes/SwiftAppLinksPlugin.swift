@@ -24,6 +24,9 @@ public final class SwiftAppLinksPlugin: NSObject, FlutterPlugin, FlutterStreamHa
         result(initialLink)
       case "getLatestAppLink":
         result(latestLink)
+      case "clearLatestAppLink": // New method to clear the latest link
+        clearLatestLink()
+        result(nil)
       default:
         result(FlutterMethodNotImplemented)
     }
@@ -85,5 +88,13 @@ public final class SwiftAppLinksPlugin: NSObject, FlutterPlugin, FlutterStreamHa
     }
 
     _eventSink(latestLink)
+  }
+
+  private func clearLatestLink() {
+    latestLink = nil
+
+    if let eventSink = eventSink {
+      eventSink(nil)
+    }
   }
 }
